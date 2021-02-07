@@ -8,7 +8,7 @@ public class Solution_IM_Exercise {
 	public static void main(String[] args) throws Exception {
 		int[] di = { -1, 0, 1, 0 };// 상, 우, 하, 좌
 		int[] dj = { 0, 1, 0, -1 };
-		
+
 		System.setIn(new FileInputStream("res/input_IM_Exercise.txt"));
 		Scanner sc = new Scanner(System.in);
 		int T = sc.nextInt();
@@ -24,24 +24,24 @@ public class Solution_IM_Exercise {
 				}
 			}
 //			for (char[] c : map) System.out.println(Arrays.toString(c));
-			
-			//4방향 탐색 : 상, 하, 좌, 우
-			for (int i = 0; i < map.length; i++) {
-				for (int j = 0; j < map.length; j++) {
-					if (map[i][j] == 'A') {
-						
-						for (int k = 0; k < 4; k++) {
-							int ni = i + di[k]; // 새로운 i 좌표
-							int nj = j + dj[k]; // 새로운 j 좌표
-							if(0<=ni && ni<map.length && 0<=nj && nj<map[0].length)
-							System.out.print(map[ni][nj]);
 
+			// 4방향 탐색 : 상, 하, 좌, 우
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					if (map[i][j] == 'A' || map[i][j] == 'B' || map[i][j] == 'C') {
+						for (int k = 0; k < 4; k++) {
+							for (int t = 1; t < map[i][j] - 'A' + 2; t++) {
+								int ni = i + di[k]*t; // 새로운 i 좌표
+								int nj = j + dj[k]*t; // 새로운 j 좌표
+								if (0 <= ni && ni < N && 0 <= nj && nj < N && map[ni][nj] == 'H')
+									map[ni][nj] = 'X';
+							}
 						}
 						System.out.println();
 					}
 				}
 			}
-			
+
 			int cnt = 0;
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < N; j++) {
