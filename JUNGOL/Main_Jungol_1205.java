@@ -1,5 +1,5 @@
 package ssafy_algo;
-
+//보충문제인데 좀 어려웠음. 나중에 한번더 풀어보기!
 import java.io.*;
 import java.util.*;
 
