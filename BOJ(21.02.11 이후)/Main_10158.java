@@ -1,42 +1,42 @@
 package ssafy_algo;
+
 import java.io.*;
 import java.util.*;
+
 /*
 시뮬레이션으로 아무리 생각해봐도 풀 수가 없었다..
 1. 단순하게 생각하면 가로로 왔다갔다, 세로로 왔다갔다.
-2. 나는 0,0 에서 시작하는걸로 생각하고 t 와 x 그리고 t 와 y 를 하나로 합쳐서 생각했다.
-3.(t + x) / w / 2 의 나머지가 1이면 w 에 도착한거니까 w - (t +x) % w 반대로 생각하는 경우다.
-4. y 도 마찬가지
+x방향 이동만 생각해보면..
+그럼 개미는 시간 t동안 0~w까지 왕복 이동한다는 것을 알 수 있다.
+p+t는 개미가 t동안 총 이동한 거리를 뜻하는데 여기에 w를 나누면 개미가 0~w까지 몇 번 왕복했는지 알 수 있다.
+그렇다면 t이후에 개미의 위치는 어디일까?
+이 값은 (p+t)/w가 짝수인가 홀수인가에 따라 다르다.
+이 값이 짝수이면 x=0에서 출발해 (p+t)%w인 곳에 개미가 위치하고
+이 값이 홀수이면 x=w에서 출발해 -(p+t)%w인 곳에 개미가 위치한다.
+y방향 이동도 비슷하게 구하면 된다.
 */
-
 public class Main_10158 {
-
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String str1[] = br.readLine().split(" ");
-		String str2[] = br.readLine().split(" ");
-		
-		int w = Integer.parseInt(str1[0]);
-		int h = Integer.parseInt(str1[1]);
-		int x = Integer.parseInt(str2[0]);
-		int y = Integer.parseInt(str2[1]);
-		int N = Integer.parseInt(br.readLine());
-		boolean maxW = (x + N) / w % 2 == 1;
-		boolean maxH = (y + N) / h % 2 == 1;
-		int resultX = 0;
-		int resultY = 0;
-		if (maxW) { //w에 도착한 경우니까!
-			resultX = w - (x + N) % w;
-		} else {
-			resultX = (x + N) % w;
-		}
-		if (maxH) { //h에 도착한 경우니까!
-			resultY = h - (y + N) % h;
-		} else {
-			resultY = (y + N) % h;
-		}
-		System.out.println(resultX + " " + resultY);
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int w = Integer.parseInt(st.nextToken());
+		int h = Integer.parseInt(st.nextToken());
 
+		st = new StringTokenizer(br.readLine());
+		int p = Integer.parseInt(st.nextToken());
+		int q = Integer.parseInt(st.nextToken());
+		int t = Integer.parseInt(br.readLine());
+		p += t % (w * 2);
+		q += t % (h * 2);
+
+		if (p > w)
+			p = (w * 2) - p;
+		if (q > h)
+			q = (h * 2) - q;
+
+		bw.write(Math.abs(p) + " " + Math.abs(q));
+		bw.flush();
 	}
 
 }
