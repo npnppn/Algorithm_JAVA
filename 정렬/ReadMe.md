@@ -1,1 +1,2 @@
-정렬문제도 많이 풀어봐야함
+
+Collections.sort(list, (o1,o2)-> o1.a-.2.a)
