@@ -1,30 +1,29 @@
-package Im_ex;
-
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main_2563 {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int[][] map = new int[101][101];
-		int[] dx = { -1, 0, 1, 0 }; // 상 우 하 좌
-		int[] dy = { 0, 1, 0, -1 };
 		int n = sc.nextInt();
-		for (int i = 0; i < n; i++) {
-			int x = sc.nextInt();
-			int y = sc.nextInt();
+		int[][] map = new int[100][100];
+		int cnt = 0;
+		for (int k = 0; k < n; k++) {
+			int x1 = sc.nextInt();
+			int y1 = sc.nextInt();
 
-			for (int k = x; k < x + 10; k++) {
-				for (int r = y; r < y + 10; r++) {
-					map[k][r] = 1;
+			for (int i = x1; i < x1 + 10; i++) {
+				for (int j = y1; j < y1 + 10; j++) {
+					map[i][j] = 1;
 				}
 			}
+
 		}
-		int cnt = 0;
-		for (int i = 1; i <= 100; i++) {
-			for (int j = 1; j <= 100; j++) {
-				if (map[i][j] == 1) cnt++;
+
+		for (int i = 0; i < 100; i++) {
+			for (int j = 0; j < 100; j++) {
+				if (map[i][j] == 1)
+					cnt++;
 			}
 		}
 		System.out.println(cnt);
