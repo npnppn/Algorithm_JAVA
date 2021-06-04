@@ -1,3 +1,5 @@
+package im;
+
 import java.io.*;
 import java.util.*;
 
@@ -7,10 +9,9 @@ public class Main_2567 {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
 		int[][] map = new int[101][101];
-		int cnt = 0;
-		for (int k = 0; k < n; k++) {
+		int n = sc.nextInt();
+		for (int tc = 0; tc < n; tc++) {
 			int x = sc.nextInt();
 			int y = sc.nextInt();
 
@@ -22,15 +23,17 @@ public class Main_2567 {
 
 		}
 
+		int cnt = 0;
+		int nx, ny;
+
 		for (int i = 0; i < 100; i++) {
 			for (int j = 0; j < 100; j++) {
+				// 1을 만나면 조건 확인하고 갈지 정해야지
 				if (map[i][j] == 1) {
-					
-					for (int dir = 0; dir < 4; dir++) {
-						int nx = i + dx[dir];
-						int ny = j + dy[dir];
-
-						if (map[nx][ny] == 0)
+					for (int k = 0; k < 4; k++) {
+						nx = i + dx[k];
+						ny = j + dy[k];
+						if (nx >= 0 && nx < 101 && ny >= 0 && ny < 101 && map[nx][ny] == 0)
 							cnt++;
 					}
 

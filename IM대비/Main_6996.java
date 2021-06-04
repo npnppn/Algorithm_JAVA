@@ -1,3 +1,5 @@
+package im;
+//6분걸림.
 import java.io.*;
 import java.util.*;
 
@@ -6,25 +8,23 @@ public class Main_6996 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
-
 		for (int i = 0; i < n; i++) {
-			String a = sc.next(); //공백 앞
-			String b = sc.next(); //공백 뒤
+			String first = sc.next(); //앞에꺼
+			String second = sc.next(); //뒤에꺼
+			char[] firstCh = first.toCharArray(); //char로 하나하나 받아
+			char[] secondCh = second.toCharArray();
 			
-			char[] arr1 = a.toCharArray(); //하나하나 배열로
-			char[] arr2 = b.toCharArray(); //하나하나 배열로
+			Arrays.sort(firstCh);
+			Arrays.sort(secondCh);
 			
-			Arrays.sort(arr1);
-			Arrays.sort(arr2);
-			
-			//같으면 에너그램
-			if (Arrays.equals(arr1, arr2)) {
-				System.out.println(a + " & " + b + " are anagrams.");
-			} else { //다르면 에너그램 아님
-				System.out.println(a + " & " + b + " are NOT anagrams." );
+			if(Arrays.equals(firstCh, secondCh)) {
+				System.out.println(first + " & " + second + " are anagrams.");
+			} else {
+				System.out.println(first + " & " + second + " are NOT anagrams.");
 			}
+
 		}
-		
+
 	}
 
 }

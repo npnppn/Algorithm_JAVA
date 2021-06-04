@@ -1,4 +1,5 @@
-package Im_ex;
+package im;
+
 import java.io.*;
 import java.util.*;
 
@@ -6,16 +7,21 @@ public class Main_2605 {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
+
+		ArrayList<Integer> al = new ArrayList<Integer>();
+
 		int n = sc.nextInt();
-		ArrayList<Integer> List = new ArrayList<>();
-		List.add(0);
-		for(int i=1; i<=n; i++) {
+		al.add(-1);
+
+		for (int i = 1; i <= n; i++) {
 			int num = sc.nextInt();
-			List.add(i-num,i);
-		}
-		for (int i=1; i<=n; i++) {
-			System.out.print(List.get(i) + " ");
+			al.add(i - num, i);
+
 		}
 
+		for (int i = 1; i <= al.size()-1; i++) {
+			System.out.print(al.get(i) + " ");
+		}
 	}
+
 }

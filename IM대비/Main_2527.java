@@ -1,7 +1,7 @@
-package Im_ex;
+package im;
 
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main_2527 {
 
@@ -23,15 +23,15 @@ public class Main_2527 {
 				System.out.println("c");
 			}
 
+			// 안겹칠때
+			else if (x2 < x3 || x4 < x1 || y2 < y3 || y4 < y1) {
+				System.out.println("d");
+			}
+
 			// 선분 일때
 			else if ((x2 == x3 && y2 != y3) || (x1 == x4 && y2 != y3) || (x2 != x3 && y1 == y4)
 					|| (x1 != x4 && y1 == y4)) {
 				System.out.println("b");
-			}
-
-			// 안겹칠때
-			else if (x2 < x3 || x4 < x1 || y2 < y3 || y4 < y1) {
-				System.out.println("d");
 			}
 
 			// 나머진 다 직사각형

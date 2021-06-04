@@ -1,100 +1,83 @@
-package Im_ex;
+package im;
 import java.io.*;
 import java.util.*;
 
 public class Main_2578 {
-	static int count;
-	static int[][] arr1;
+	static int[][] map = new int[5][5];
+	static int answer = 0;
+	static int bingo = 0;
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		arr1 = new int[5][5];
-		count = 0;
 
+		// input
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
-				arr1[i][j] = sc.nextInt();
+				map[i][j] = sc.nextInt();
 			}
 		}
 
-		for (int a = 1; a <= 25; a++) {
-			int n = sc.nextInt();
+		// 사회자가 부르는 숫자
+		for (int i = 0; i < 25; i++) {
+			int number = sc.nextInt();
+			answer++;
+			for (int j = 0; j < 5; j++) {
+				for (int k = 0; k < 5; k++) {
+					if (map[j][k] == number) { // 찾아서
+						map[j][k] = -1; // -1 로 설정해두고
 
-			for (int i = 0; i < 5; i++) {
-				for (int j = 0; j < 5; j++) {
-					if (arr1[i][j] == n) {
-						arr1[i][j] = 0;
+						if (check(j, k) >= 3) {
+							System.out.println(answer);
+							return;
+						}
 					}
 				}
 			}
-
-			rCheck();
-			TCheck();
-			llCheck();
-			rrCheck();
-
-			if (count >= 3) {
-				System.out.println(a);
-				break;
-			}
-			count = 0;
-
 		}
+
 	}
 
-	// 가로 빙고
-	public static void rCheck() {
+	private static int check(int r, int c) {
+		int cnt = 0;
+		// 가로 방향 보기
 		for (int i = 0; i < 5; i++) {
-			int zeroCnt = 0;
-
+			int rcnt = 0;
 			for (int j = 0; j < 5; j++) {
-				if (arr1[i][j] == 0) {
-					zeroCnt++;
-				}
+				if (map[i][j] == -1)
+					rcnt++;
 			}
-			if (zeroCnt == 5)
-				count++;
+			if (rcnt == 5)
+				cnt++;
 		}
-	}
 
-	// 세로 빙고
-	public static void TCheck() {
+		// 세로 방향 보기
 		for (int i = 0; i < 5; i++) {
-			int zeroCnt = 0;
-
+			int ccnt = 0;
 			for (int j = 0; j < 5; j++) {
-				if (arr1[j][i] == 0) {
-					zeroCnt++;
-				}
+				if (map[j][i] == -1)
+					ccnt++;
 			}
-			if (zeroCnt == 5)
-				count++;
+			if (ccnt == 5)
+				cnt++;
 		}
-	}
+		// 우상향 대각선 보기
+		int ccnt = 0;
+		for (int i = 4; i >= 0; i--) {
 
-	// 왼쪽 대각선 빙고
-	public static void llCheck() {
-		int zeroCnt = 0;
+			if (map[4 - i][i] == -1)
+				ccnt++;
+			if (ccnt == 5)
+				cnt++;
+		}
+
+		// 우하향대각선
+		ccnt = 0;
 		for (int i = 0; i < 5; i++) {
-				if (arr1[i][i] == 0) {
-					zeroCnt++;
-			}
-			if (zeroCnt == 5)
-				count++;
+			if (map[i][i] == -1)
+				ccnt++;
+			if (ccnt == 5)
+				cnt++;
 		}
+		return cnt;
 	}
-
-	// 오른쪽 대각선 빙고
-	public static void rrCheck() {
-		int zeroCnt = 0;
-		for (int i = 0; i < 5; i++) {
-			
-				if (arr1[i][4 - i] == 0) {
-					zeroCnt++;
-				}
-			if (zeroCnt == 5)
-				count++;
-		}
-	}
-
 }
