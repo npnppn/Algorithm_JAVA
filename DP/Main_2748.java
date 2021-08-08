@@ -1,22 +1,29 @@
-package ssafy_algo;
+package dp;
 
 import java.io.*;
+import java.util.*;
 
 public class Main_2748 {
-	static int N;
-	static long[] dx;
+	static long[] dp;
 
-	public static void main(String[] args) throws Exception, IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		N = Integer.parseInt(br.readLine());
-		dx = new long[N + 1];
-		dx[0] = 0;
-		dx[1] = 1;
-
-		for (int i = 2; i <= N; i++) { // 2번 숫자부터 반복 시작
-			dx[i] = dx[i - 1] + dx[i - 2];
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		dp = new long[n + 1];
+		for (int i = 0; i < n + 1; i++) {
+			dp[i] = -1;
 		}
+		dp[0] = 0;
+		dp[1] = 1;
+		System.out.println(fibo(n));
 
-		System.out.println(dx[N]);
 	}
+
+	static long fibo(int n) {
+		if (dp[n] == -1) {
+			dp[n] = fibo(n - 1) + fibo(n - 2);
+		}
+		return dp[n];
+	}
+
 }
