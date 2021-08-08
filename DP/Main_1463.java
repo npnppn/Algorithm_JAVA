@@ -1,42 +1,32 @@
-package baekjoon;
+package dp;
 
 import java.io.*;
 import java.util.*;
 
 public class Main_1463 {
+	static int dp[];
 	static int n;
-	static Integer[] dp;
 
-	public static void main(String[] args) throws Exception, IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		n = Integer.parseInt(br.readLine());
-		dp = new Integer[n + 1];
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		n = sc.nextInt();
+
+		dp = new int[n + 1];
 		dp[0] = dp[1] = 0;
-		
-		System.out.println(again(n));
 
-	}
+		// 1)n/2«ﬂ¿ª ∂ß 2)n/3«ﬂ¿ª ∂ß 3)n-1 «ﬂ¿ª ∂ß ∞°¿Â √÷º“∞™¿Œ ∞Õ¿ª √£æ∆º≠ dpπËø≠ø° ≥÷æÓ¡÷¿⁄
+		for (int i = 2; i <= n; i++) {
+			dp[i] = dp[i - 1] + 1;
+			// 2∑Œ ≥™¥≤∂≥æÓ¡˙∂ß
+			if (i % 2 == 0) {
+				dp[i] = Math.min(dp[i], dp[i / 2] + 1);
+			}
 
-	static int again(int n) {
-//Í∞Å Î∂ÄÎ∂ÑÏóê Ïù¥Ï†Ñ Ïû¨Í∑ÄÌò∏Ï∂ú Ï§ë ÏµúÏÜüÍ∞íÏóê 1ÏùÑ ÎçîÌïú Í∞íÏù¥ ÌòÑÏû¨ NÏóê ÎåÄÌïú ÏµúÏÜåÏó∞ÏÇ∞ ÌöüÏàòÍ∞Ä ÎêúÎã§.
-		if (dp[n] == null) {
-			// 6ÏúºÎ°ú ÎÇòÎà†ÏßÄÎäî Í≤ΩÏö∞
-			if (n % 6 == 0) {
-				dp[n] = Math.min(again(n - 1), Math.min(again(n / 3), again(n / 2))) + 1;
-			}
-			// 3ÏúºÎ°úÎßå ÎÇòÎà†ÏßÄÎäî Í≤ΩÏö∞
-			else if (n % 3 == 0) {
-				dp[n] = Math.min(again(n / 3), again(n - 1)) + 1;
-			}
-			// 2Î°úÎßå ÎÇòÎà†ÏßÄÎäî Í≤ΩÏö∞
-			else if (n % 2 == 0) {
-				dp[n] = Math.min(again(n / 2), again(n - 1)) + 1;
-			}
-			// 2ÏôÄ 3ÏúºÎ°ú ÎÇòÎàÑÏñ¥ÏßÄÏßÄ ÏïäÎäî Í≤ΩÏö∞
-			else {
-				dp[n] = again(n - 1) + 1;
+			// 3¿∏∑Œ ≥™¥≤∂≥æÓ¡˙∂ß
+			if (i % 3 == 0) {
+				dp[i] = Math.min(dp[i], dp[i / 3] + 1);
 			}
 		}
-		return dp[n];
+		System.out.println(dp[n]);
 	}
 }
