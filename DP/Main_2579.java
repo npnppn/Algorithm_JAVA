@@ -1,41 +1,28 @@
-package boj;
+package dp;
 
 import java.io.*;
 import java.util.*;
 
 public class Main_2579 {
-	static Integer dp[];
-	static int arr[];
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int N = Integer.parseInt(br.readLine()); //ê³„ë‹¨ ìˆ˜
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		int dp[] = new int[301];
+		int arr[] = new int[301];
 
-		dp = new Integer[N + 1];
-		arr = new int[N + 1];
-
-		for (int i = 1; i <= N; i++) {
-			arr[i] = Integer.parseInt(br.readLine()); //ì ìˆ˜
+		for (int i = 1; i <= n; i++) {
+			arr[i] = sc.nextInt();
 		}
 
-		dp[0] = arr[0]; //  0ìœ¼ë¡œ ì´ˆê¸°í™”
+		//n-3¹â°í n-1¹â´Â °æ¿ì  or n-2¸¸ ¹â´Â °æ¿ì Áß ÃÖ´ëÀÎ°ª+ÇöÀç°ªÀ» ÇÏ¸é µÈ´Ù!!
 		dp[1] = arr[1];
-
-		if (N >= 2) {
-			dp[2] = arr[1] + arr[2];
+		dp[2] = arr[1] + arr[2];
+		dp[3] = Math.max(arr[1], arr[2]) + arr[3];
+		// 4¹øÂ°ºÎÅÍ ÀÌÁ¦ °è¼Ó ´Ş¶óÁö´Ï±î ºñ±³¸¦ ÇØ
+		for (int i = 4; i <= n; i++) {
+			dp[i] = Math.max(dp[i - 3] + arr[i - 1], dp[i - 2]) + arr[i];
 		}
-
-		System.out.println(find(N));
-
+		System.out.println(dp[n]);
 	}
-
-	static int find(int N) {
-		// ì•„ì§ íƒìƒ‰í•˜ì§€ ì•ŠëŠ” Në²ˆì§¸ ê³„ë‹¨ì¼ ê²½ìš°
-		if (dp[N] == null) {
-			dp[N] = Math.max(find(N - 2), find(N - 3) + arr[N - 1]) + arr[N];
-		}
-
-		return dp[N];
-	}
-
 }
