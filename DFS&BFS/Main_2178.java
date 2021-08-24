@@ -1,60 +1,78 @@
-package ssafy_algo;
+package dfs_bfs;
 
 import java.io.*;
 import java.util.*;
 
-public class Main_2178 {
+//ÁÂÇ¥ ´ãÀ» °´Ã¼
+class Pos {
+	int x;
+	int y;
 
-	static int[] dr = { 1, -1, 0, 0 };
-	static int[] dc = { 0, 0, -1, 1 };
-	static boolean[][] visited;
-	static int[][] map;
-	static int N, M;
-
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-
-		N = Integer.parseInt(st.nextToken());
-		M = Integer.parseInt(st.nextToken());
-
-		map = new int[N][M];
-		visited = new boolean[N][M];
-
-		for (int i = 0; i < N; i++) {
-			st = new StringTokenizer(br.readLine());
-			String line = st.nextToken();
-			for (int j = 0; j < M; j++) {
-				map[i][j] = line.charAt(j) - '0';
-			}
-		}
-		bfs(0, 0);
-		System.out.println(map[N - 1][M - 1]); //(N, M) ì¶œë ¥. ì¢Œí‘œê°’ì´ê¸° ë•Œë¬¸ì— -1
+	Pos(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 
-	public static void bfs(int i, int j) {
-		Queue<int[]> q = new LinkedList<>();
-		q.offer(new int[] { i, j });
+}
+
+public class Main_2178 {
+
+	static int N;
+	static int M;
+	static int[][] map;
+	static boolean[][] visited;
+	static int[] dx = { 0, 1, 0, -1 };
+	static int[] dy = { 1, 0, -1, 0 };
+	static int cnt;
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		N = sc.nextInt();
+		M = sc.nextInt();
+
+		map = new int[N + 1][M + 1];
+		visited = new boolean[N + 1][M + 1];
+		cnt = 0;
+		
+		// ¸Ê Ã¤¿ö³Ö°í Å½»öÀ» ½ÃÀÛÇÏÀÚ
+		for (int i = 0; i < N; i++) {
+			String str = sc.next();
+			for (int j = 0; j < M; j++) {
+				map[i + 1][j + 1] = str.charAt(j) - '0';
+			}
+		}
+
+		bfs(1, 1); // ÁÂÇ¥ 1,1ºÎÅÍ ½ÃÀÛ
+		System.out.println(map[N][M]); //¸Ç ³¡¿¡ µµÂøÇßÀ»‹š Ãâ·Â
+
+	}
+
+	static void bfs(int a, int b) {
+		Queue<Pos> q = new LinkedList<Pos>();
+		Pos p = new Pos(a, b);
+		q.add(p);
+		//¹æ¹®Ã³¸®¸¦ ÀÌ¶§ ÇØµµµÇ³ª?
+		//visited[a][b] = true;
 
 		while (!q.isEmpty()) {
-			int location[] = q.poll();
-			visited[i][j] = true;
-
-			for (int dir = 0; dir < 4; dir++) {
-				int r = location[0] + dr[dir];
-				int c = location[1] + dc[dir];
-
-				// ì¢Œí‘œê°€ -1ì´ ë˜ê±°ë‚˜ N or Mì´ ë˜ì–´ mapì˜ ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ë©´ ì•ˆë˜ë¯€ë¡œ
-				if (r >= 0 && c >= 0 && r < N && c < M) {
-					if (map[r][c] != 0 && !visited[r][c]) {
-						 //ë‹¤ìŒì— ë°©ë¬¸í•  ì¢Œí‘œë¥¼ íì— ë„£ëŠ”ë‹¤.
-						q.offer(new int[] { r, c });
-						visited[r][c] = true;
-						//ë°°ì—´ì•ˆì— ë‹¤ìŒ ë°©ë¬¸í•  ê³³ì€ í˜„ìž¬ ë°©ë¬¸í–ˆë˜ ì ë³´ë‹¤ 1ì¹¸ ë” ê°€ì•¼í•˜ë¯€ë¡œ +1 
-						map[r][c] = map[location[0]][location[1]] + 1;
+			Pos tmp = q.poll();
+			visited[tmp.x][tmp.y] = true;
+			for (int i = 0; i < 4; i++) {
+				int nx = tmp.x + dx[i];
+				int ny = tmp.y + dy[i];
+				if (nx >= 0 && ny >= 0 && nx <= N && ny <= M) {
+					//¸Ê¾È¿¡ ÀÖ°í 1ÀÎµ¥ ¹æ¹®ÇÏÁö¾Ê¾ÒÀ¸¸é ±Û·Î °¡°í ¹æ¹®Ã³¸®
+					if (map[nx][ny] == 1 && !visited[nx][ny]) {
+						visited[nx][ny] = true;
+						Pos tmp2 = new Pos(nx, ny);
+						q.offer(tmp2);
+						//´ÙÀ½ ¹æ¹®ÇÒ °÷Àº ÇöÀç ¹æ¹®ÇÑ °÷º¸´Ù 1Ä­ ´õ °¡¾ßÇÏ¹Ç·Î 1´õÇØ
+						map[nx][ny] = map[tmp.x][tmp.y] + 1;
 					}
 				}
 			}
 		}
+
 	}
+
 }
