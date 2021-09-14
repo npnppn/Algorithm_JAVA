@@ -1,59 +1,42 @@
-package ssafy_algo;
+package binary_search;
 
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Main_1920 {
-	static int[] arr2;
-	static int[] arr;
 
-	public static void main(String[] args) throws Exception, IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int N = Integer.parseInt(br.readLine());
-		arr = new int[N];
-		StringTokenizer st = new StringTokenizer(br.readLine());
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int N = sc.nextInt();
+		int[] arr = new int[N];
 		for (int i = 0; i < N; i++) {
-			arr[i] = Integer.parseInt(st.nextToken());
+			arr[i] = sc.nextInt();
 		}
-		Arrays.sort(arr); // 1 2 3 4 5
-		//System.out.println(Arrays.toString(arr));
+		Arrays.sort(arr);
 
-		
-		int M = Integer.parseInt(br.readLine());
-		arr2 = new int[M];
-		StringTokenizer st2 = new StringTokenizer(br.readLine());
+		int M = sc.nextInt();
+
 		for (int i = 0; i < M; i++) {
-			arr2[i] = Integer.parseInt(st2.nextToken());
-		}
-		// Arrays.sort(arr2); //1 3 5 7 9
-		//System.out.println(Arrays.toString(arr2));
-		
-		
-		for (int i = 0; i < M; i++) {
-			System.out.println(biSearch(arr, arr2[i]));
+			int target = sc.nextInt();
+			int start = 0;
+			int end = arr.length - 1;
+			boolean check = false;
+			while (start <= end) {
+				int mid = (start + end) / 2;
+				if (arr[mid] > target) {
+					end = mid - 1;
+				} else if (arr[mid] < target) {
+					start = mid + 1;
+				} else {
+					check = true;
+					System.out.println(1);
+					break;
 
-		}
-	}
-
-	static int biSearch(int[] arr, int num) {
-		int start = 0;
-		int end = arr.length - 1;
-		int mid = 0;
-		while (start <= end) {
-			mid = (start + end) / 2;
-			if (arr[mid] == num) {
-				return 1;
+				}
 			}
-
-			else if (arr[mid] > num) {
-				end = mid - 1;
+			if (!check) {
+				System.out.println(0);
 			}
-
-			else {
-				start = mid + 1;
-			}
-
 		}
-		return 0;
 	}
 }
