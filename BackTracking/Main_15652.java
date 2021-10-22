@@ -1,4 +1,4 @@
-package permu_combi2;
+package backt;
 
 import java.io.*;
 import java.util.*;
@@ -12,23 +12,28 @@ public class Main_15652 {
 		Scanner sc = new Scanner(System.in);
 		n = sc.nextInt();
 		m = sc.nextInt();
+
 		selected = new int[m];
-		combi(0, selected, 0);
-		System.out.print(sb);
+
+		dfs(1, selected, 0);
+		System.out.println(sb);
+
 	}
 
-	static void combi(int toselect, int[] selected, int startidx) {
-		if (toselect == m) {
+	static void dfs(int start, int[] selected, int select) {
+		if (select == m) {
 			for (int i : selected) {
-				sb.append(i).append(" ");
+				sb.append(i + " ");
 			}
-			sb.append('\n');
+			sb.append("\n");
 			return;
 		}
-		for (int i = startidx; i < n; i++) {
-			selected[toselect] = i + 1;
-			combi(toselect+1, selected, i); //자기 자신부터 시작하면 됨
+
+		for (int i = start; i <= n; i++) {
+			selected[select] = i;
+			dfs(i, selected, select + 1);
 		}
 
 	}
+
 }
