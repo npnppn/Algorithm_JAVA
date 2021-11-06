@@ -1,4 +1,4 @@
-package baekjoon;
+package two_pointer;
 
 import java.io.*;
 import java.util.*;
@@ -7,46 +7,42 @@ public class Main_11728 {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
-		int m = sc.nextInt();
-		int[] arr = new int[n];
-		int[] arr2 = new int[m];
-		int[] result = new int[n + m];
+		int N = sc.nextInt();
+		int M = sc.nextInt();
+		int[] a = new int[N];
+		int[] b = new int[M];
 
-		for (int i = 0; i < n; i++) {
-			arr[i] = sc.nextInt();
-		}
-		Arrays.sort(arr);
-
-		for (int i = 0; i < m; i++) {
-			arr2[i] = sc.nextInt();
-		}
-		Arrays.sort(arr2);
-
-		// 투 포인터 사용해서 이제 탐색할거임
-		int left = 0;
-		int right = 0;
-		int k = 0;
-
-		while (left < n && right < m) {
-			if (arr[left] > arr2[right]) {
-				result[k++] = arr2[right++];
-			} else {
-				result[k++] = arr[left++];
-			}
+		for (int i = 0; i < N; i++) {
+			a[i] = sc.nextInt();
 		}
 
-		while (right < m) {
-			result[k++] = arr2[right++];
-		}
-		while (left < n) {
-			result[k++] = arr[left++];
+		for (int i = 0; i < M; i++) {
+			b[i] = sc.nextInt();
 		}
 
 		StringBuilder sb = new StringBuilder();
+		int left = 0;
+		int right = 0;
+		while (!(left == N || right == M)) {
+			if (a[left] <= b[right]) {
+				sb.append(a[left] + " ");
+				left++;
+			} else {
+				sb.append(b[right] + " ");
+				right++;
+			}
+		}
 
-		for (int i = 0; i < result.length; i++) {
-			sb.append(result[i] + " ");
+		if (left == N) {
+			for (int i = right; i < M; i++) {
+				sb.append(b[i] + " ");
+			}
+		}
+
+		if (right == M) {
+			for (int i = left; i < N; i++) {
+				sb.append(a[i] + " ");
+			}
 		}
 		System.out.println(sb);
 
