@@ -1,6 +1,5 @@
 import java.util.*;
 import java.util.ArrayList;
-
 class Solution {
     Integer func_a(ArrayList<Integer> stack) {
         Integer item = stack.remove(stack.size() - 1);
