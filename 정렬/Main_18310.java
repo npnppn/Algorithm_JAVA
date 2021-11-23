@@ -1,0 +1,21 @@
+package sort;
+
+import java.io.*;
+import java.util.*;
+
+public class Main_18310 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		int[] arr = new int[n];
+		for (int i = 0; i < n; i++) {
+			arr[i] = sc.nextInt();
+		}
+		Arrays.sort(arr);
+		int result = (n - 1) / 2;
+		System.out.println(arr[result]);
+
+	}
+
+}
